@@ -2,16 +2,40 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+
 class SidebarContent extends Component {
-  render() {
+  goToProfile = () => {
+      Actions.Profile()
+
+      // close sidebar
+  }
+
+  goToLogin = () => {
+    Actions.Login()
+
+    // close sidebar
+  }
+
+  render = () => {
+    console.log(Actions)
     return (
       <View style={ styles.container }>
-        <Text style={ styles.text }>
-          MENU !!!
-        </Text>
+        <TouchableOpacity onPress={this.goToProfile}>
+          <Text style={ styles.text }>
+            Profile
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.goToLogin}>
+          <Text style={ styles.text }>
+            Login
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -30,3 +54,4 @@ const styles = StyleSheet.create({
 });
 
 export default SidebarContent
+// export default connect(({store}) => ({store}))(SidebarContent);
