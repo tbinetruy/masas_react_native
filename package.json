@@ -12,7 +12,7 @@
     "react-native-ios-network-audio": "0.0.8",
     "react-native-linear-gradient": "1.5.1",
     "react-native-router-flux": "aksonov/react-native-router-flux#0.26-wip",
-    "react-native-side-menu": "0.18.0",
+    "react-native-side-menu": "0.18.1",
     "react-redux": "3.1.0",
     "redux": "^3.0.0"
   }
