@@ -35,14 +35,19 @@ class MASAS extends Component {
 
     return (
           <SideMenu menu={menu}>
-            <Provider store={store}>
-              <RouterWithRedux>
-                <Scene key="root">
-                  <Scene key="Login" component={Login} title="Login" initial={true} />
-                  <Scene key="Profile" component={Profile} title="Profile" />
-                </Scene>
-              </RouterWithRedux>
-            </Provider>
+            <View style={ styles.routerContainer }>
+              <Provider store={store}>
+                <RouterWithRedux>
+                  <Scene key="root">
+                    <Scene key="Login" component={Login} title="Login" initial={true} />
+                    <Scene key="Profile" component={Profile} title="Profile" />
+                  </Scene>
+                </RouterWithRedux>
+              </Provider>
+            </View>
+            <View style={ styles.footerContainer }>
+              <Footer />
+            </View>
           </SideMenu>
     );
   }
