@@ -4,16 +4,26 @@ import {
   Text,
   View
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+var AudioPlayer = require('react-native-audioplayer');
 
 class Footer extends Component {
+  playNewSong() {
+    AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/151854794/stream?client_id=e5d965905a85b11e108d064bc04430a3")
+  }
+    
   render() {
-    AudioPlayer.play('01 01 Good Times Bad Times.mp3.mp3');
+    AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/268713736/stream?client_id=e5d965905a85b11e108d064bc04430a3")
     
     return (
       <View style={ styles.container }>
-        <Text style={ styles.text }>
-          FOOTER !!
+        <Text style={ styles.text } onPress={ AudioPlayer.pause }>
+          Pause
+        </Text>
+        <Text style={ styles.text } onPress={ AudioPlayer.resume }>
+          Play
+        </Text>
+        <Text style={ styles.text } onPress={ this.playNewSong }>
+          Next
         </Text>
       </View>
     );
