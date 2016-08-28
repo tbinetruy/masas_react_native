@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+
+var AudioPlayer = require('react-native-audioplayer');
 
 class Login extends Component {
   render() {
