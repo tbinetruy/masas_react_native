@@ -287,6 +287,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				D1E4BC111D74997800300BB4 /* SC_wrapper.swift */,
+				D1E4BC131D7499D600300BB4 /* SC_wrapperBridge.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -296,7 +297,6 @@
 				D1D8D84F1D734A2A0036E9CC /* FBSDKShareKit.framework */,
 				D1E4BC151D74A38D00300BB4 /* ViewController.swift */,
 				D1E4BC101D74997800300BB4 /* MASAS-Bridging-Header.h */,
-				D1E4BC131D7499D600300BB4 /* SC_wrapperBridge.m */,
 			);
 			name = MASAS;
 			sourceTree = "<group>";

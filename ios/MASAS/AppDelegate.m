@@ -67,13 +67,8 @@
   UIViewController *rootViewController = [[UIViewController alloc] init];  // UIViewController*
   rootViewController.view = rootView;
   
-  UIViewController *rootViewController2 = [[UIViewController alloc] init];  // UIViewController*
-  rootViewController.view = rootView;
-  
-  
   self.window.rootViewController = rootViewController;
   self.rootViewController = rootViewController;
-  self.ReactNativeRootViewController = rootViewController2;
   
   [self.window makeKeyAndVisible];
   return [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -82,16 +77,6 @@
   // return YES;        // return value before Facebook SDK
 }
 
-- (void)switchToRN {
-  NSLog(self);
-  NSLog(self.window);
-//  NSLog(self.rootViewController);
-//  NSLog(self.ReactNativeRootViewController);
-//  NSLog(self.window.rootViewController);
-//  self.window.rootViewController = self.rootViewController;
-  
-//  self.window.rootViewController = self.ReactNativeRootViewController;
-}
 
 
 // Facebook SDK

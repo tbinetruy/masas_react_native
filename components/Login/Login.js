@@ -46,7 +46,7 @@ class Login extends Component {
   }
   
   hey = () => {
-    SC.connect('Birthday Party', '4 Privet Drive, Surrey');
+    SC.connect();
   }
   
   render = () => {
