@@ -1,0 +1,18 @@
+PODS:
+  - 1PasswordExtension (1.8.3)
+  - Soundcloud (0.8.2):
+    - 1PasswordExtension (~> 1.5)
+    - UICKeyChainStore (~> 2.0.6)
+  - UICKeyChainStore (2.0.7)
+
+DEPENDENCIES:
+  - Soundcloud
+
+SPEC CHECKSUMS:
+  1PasswordExtension: 8757dc3302353731dd3e678e63b5023a708783cb
+  Soundcloud: b64e03bf2343264f4a565751ddd7b70b73d75214
+  UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575
+
+PODFILE CHECKSUM: d22a16cdf136083fd73373d544a639c64054c95a
+
+COCOAPODS: 1.0.1

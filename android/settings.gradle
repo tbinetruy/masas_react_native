@@ -1,0 +1,3 @@
+rootProject.name = 'MASAS'
+
+include ':app'

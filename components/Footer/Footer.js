@@ -4,7 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
-var AudioPlayer = require('react-native-audioplayer');
+var AudioPlayer = require('react-native-stream-audio-from-url');
 
 class Footer extends Component {
   playNewSong() {
