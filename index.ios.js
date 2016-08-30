@@ -29,11 +29,13 @@ import {
   View
 } from 'react-native';
 
+
 class MASAS extends Component {
   render() {
     const menu = <SidebarContent />
 
     return (
+        <Provider store={store}>
           <SideMenu menu={menu}>
             <View style={ styles.routerContainer }>
               <Provider store={store}>
@@ -49,6 +51,7 @@ class MASAS extends Component {
               <Footer />
             </View>
           </SideMenu>
+      </Provider>
     );
   }
 }

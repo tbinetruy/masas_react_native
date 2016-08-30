@@ -4,22 +4,33 @@ import {
   View,
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
-
+import { connect } from 'react-redux';
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 import SC from './../SC_wrapper'
 
-// var SC = require('soundcloud');
+let mapStateToProps = function(state) {
+	return {
+// 		checkbox1_checked: state.uploadSCReducer.checkbox1_checked,
+// 		checkbox2_checked: state.uploadSCReducer.checkbox2_checked,
+// 		checkbox3_checked: state.uploadSCReducer.checkbox3_checked,
+	}
+}
 
-class Login extends Component {
+// Which action creators does it want to receive by props?
+let mapDispatchToProps = function(dispatch) {
+	return {
+//         toogleCheckbox1: () => dispatch({ type: 'TOOGLE_CHECKBOX_1' }),
+// 		toogleCheckbox2: () => dispatch({ type: 'TOOGLE_CHECKBOX_2' }),
+// 		toogleCheckbox3: () => dispatch({ type: 'TOOGLE_CHECKBOX_3' }),
+	}
+}
+ class Login extends Component {
   constructor(props) {
     super(props)
     
     this.state = {
       test: '1'
     }
-    
-    
-//     SC.get('/tracks/151854794').then((r) => console.log(r))
   }
   
   login = async ({ token }) => {
@@ -69,4 +80,7 @@ class Login extends Component {
 }
 
 // export default Login
-module.exports = Login
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Login)
