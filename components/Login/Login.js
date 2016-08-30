@@ -16,6 +16,8 @@ import { connect } from 'react-redux';
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 import SC from './../SC_wrapper'
 
+import { login } from './../../MASAS_functions'
+
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
 	return {
@@ -26,7 +28,8 @@ let mapStateToProps = function(state) {
 let mapDispatchToProps = function(dispatch) {
 	return {
       updateUserPk: (pk) => dispatch({type: 'UPDATE_USER_PK', pk}),
-      loginUser: (userToken, userData, userPk) => dispatch({ type: "LOGIN", token: userToken, userData , pk: userPk }),
+      login: ({ token }) => login(token),
+      logout: () => dispatch({type: "LOGOUT"}),
 	}
 }
 
@@ -37,54 +40,6 @@ class Login extends Component {
     
     this.state = {
       test: '1'
-    }
-  }
-  
-  login = async ({ token }) => {  
-    try {
-      // GET USER TOKEN FROM MASAS API
-      const convertTokenURL = globals.ajaxPref + '/auth/convert-token/'
-      
-      let convertTokenBody = new FormData()
-      convertTokenBody.append("grant_type", "convert_token")
-      convertTokenBody.append("client_id", "biHRTlM74WJ2l8NddjR6pa8uNYpWC4vFzTjyjOUO")
-      convertTokenBody.append("client_secret", "aNXFRxyW20wBDLmTlf4ntmFKYSQ7qvig3PSRLlSxBYfxpmFPnh9JJz876eLMIeZJaoYyM2F6Q7q36QveAWacmiOT14y1z0EwpqO7lQVhXBx037FNGr6mDwYNq1fGfNVl")
-      convertTokenBody.append("backend", "facebook")
-      convertTokenBody.append("token", token)
-
-      const convertTokenInit = {
-        method: 'POST',
-        body: convertTokenBody,
-      }
-    
-      let MASAS_token = await fetch(convertTokenURL, convertTokenInit)
-      let MASAS_tokenJSON = await MASAS_token.json()
-      
-      // GET USER PK FROM MASAS API
-      const userPkRequestURL = globals.ajaxPref + '/api/check-user/'
-      
-      let userPkRequestHeaders = new Headers()
-      userPkRequestHeaders.append('Authorization', 'Bearer ' + MASAS_tokenJSON.access_token)
-      
-      const userPkInit = {
-        method: 'GET',
-        headers: userPkRequestHeaders,
-      }
-      
-      let userPk = await fetch(userPkRequestURL, userPkInit)
-      let userPkJSON = await userPk.json()
-      
-      // GET USER DATA FROM MASAS API
-      const userDataRequestURL = globals.ajaxPref + '/api/users/' + userPkJSON.userPk + '/'
-      
-      let userData = await fetch(userDataRequestURL)
-      let userDataJSON = await userData.json()
-      
-      // UPDATE APP STATE
-      this.props.loginUser(MASAS_tokenJSON.access_token, userDataJSON, userPkJSON.userPk)
-    } catch(error) {
-      console.log(error)
-      this.setState({ error: error })
     }
   }
   
@@ -103,9 +58,15 @@ class Login extends Component {
           source={require('./../../img/logo.png')}
         />
         
-        <FBLogin onLogin={ (data) => {
-            console.log(data)
-            that.login(data.credentials)
+        <FBLogin 
+          onLogin={ (data) => {
+            that.props.login(data.credentials)
+          }}
+          onLogout={ (data) => {
+            that.props.logout()
+          }}
+          onLoginFound={function(data){
+            that.props.login(data.credentials)
           }}
           permissions={["email"]}/>
 
