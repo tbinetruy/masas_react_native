@@ -11,4 +11,9 @@ export default styles = StyleSheet.create({
   text: {
     color: 'white'
   },
+  MASAS_logo: {
+    height: 400,
+    width: 150,
+    resizeMode: "contain"
+  }
 });

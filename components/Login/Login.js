@@ -1,5 +1,6 @@
 /******* IMPORTS *******/
-import globals from'./../../globals'
+
+// REACT
 import React, { Component } from 'react';
 import {
   Text,
@@ -7,16 +8,20 @@ import {
   Image,
 } from 'react-native'
 
-import styles from './styles/LoginStyles'
-
+// 3RD PARTY IMPORTS
 import { Actions } from 'react-native-router-flux';
-
 import { connect } from 'react-redux';
+var { FBLogin, FBLoginManager } = require('react-native-facebook-login');
 
-var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
+// MASAS FUNCTIONS
+import globals from'./../../globals'
+import { login } from './../../MASAS_functions'
 import SC from './../SC_wrapper'
 
-import { login } from './../../MASAS_functions'
+// MASAS COMPONENTS
+import styles from './styles/LoginStyles'
+import BgImage from './../BgImage/BgImage'
+
 
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
@@ -33,6 +38,7 @@ let mapDispatchToProps = function(dispatch) {
 	}
 }
 
+    
 /******* COMPONENT DEFINITION *******/
 class Login extends Component {
   constructor(props) {
@@ -50,34 +56,37 @@ class Login extends Component {
   render = () => {
     var that = this
     return (
-      <View style={ styles.container }>
-        <Text onPress={Actions.Profile}>Login</Text>
-        
-        <Image
-          source={require('./../../img/logo.png')}
-        />
-        
-        <FBLogin 
-          onLogin={ (data) => {
-            that.props.login(data.credentials)
-          }}
-          onLogout={ (data) => {
-            that.props.logout()
-          }}
-          onLoginFound={function(data){
-            that.props.login(data.credentials)
-          }}
-          permissions={["email"]}/>
+      <BgImage>
+        <View style={ styles.container }>
+          <Image
+            style={ styles.MASAS_logo }
+            source={require('./../../img/MASAS_logo_tipi.png')}
+          />
 
-      </View>
+          <FBLogin 
+            onLogin={ (data) => {
+              that.props.login(data.credentials)
+            }}
+            onLogout={ (data) => {
+              that.props.logout()
+            }}
+            onLoginFound={function(data){
+              that.props.login(data.credentials)
+            }}
+            permissions={["email"]}/>
+
+        </View>
+      </BgImage>
     )
   }
 }
 
+  
 /******* PropTypes *******/
 Login.propTypes = {
   
 }
+
 
 /******* EXPORT COMPONENT *******/
 export default connect(
