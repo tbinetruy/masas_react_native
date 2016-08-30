@@ -1,30 +1,37 @@
+/******* IMPORTS *******/
+import globals from'./../../globals'
 import React, { Component } from 'react';
 import {
   Text,
   View,
+  Image,
 } from 'react-native'
+
+import styles from './LoginStyles'
+
 import { Actions } from 'react-native-router-flux';
+
 import { connect } from 'react-redux';
+
 var {FBLogin, FBLoginManager} = require('react-native-facebook-login');
 import SC from './../SC_wrapper'
 
+/******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
 	return {
-// 		checkbox1_checked: state.uploadSCReducer.checkbox1_checked,
-// 		checkbox2_checked: state.uploadSCReducer.checkbox2_checked,
-// 		checkbox3_checked: state.uploadSCReducer.checkbox3_checked,
+      userData: state.appReducer.userData,
 	}
 }
 
-// Which action creators does it want to receive by props?
 let mapDispatchToProps = function(dispatch) {
 	return {
-//         toogleCheckbox1: () => dispatch({ type: 'TOOGLE_CHECKBOX_1' }),
-// 		toogleCheckbox2: () => dispatch({ type: 'TOOGLE_CHECKBOX_2' }),
-// 		toogleCheckbox3: () => dispatch({ type: 'TOOGLE_CHECKBOX_3' }),
+      updateUserPk: (pk) => dispatch({type: 'UPDATE_USER_PK', pk}),
+      loginUser: (userToken, userData, userPk) => dispatch({ type: "LOGIN", token: userToken, userData , pk: userPk }),
 	}
 }
- class Login extends Component {
+
+/******* COMPONENT DEFINITION *******/
+class Login extends Component {
   constructor(props) {
     super(props)
     
@@ -33,26 +40,51 @@ let mapDispatchToProps = function(dispatch) {
     }
   }
   
-  login = async ({ token }) => {
-    var body = new FormData()
-    body.append("grant_type", "convert_token")
-    body.append("client_id", "biHRTlM74WJ2l8NddjR6pa8uNYpWC4vFzTjyjOUO")
-    body.append("client_secret", "aNXFRxyW20wBDLmTlf4ntmFKYSQ7qvig3PSRLlSxBYfxpmFPnh9JJz876eLMIeZJaoYyM2F6Q7q36QveAWacmiOT14y1z0EwpqO7lQVhXBx037FNGr6mDwYNq1fGfNVl")
-    body.append("backend", "facebook")
-    body.append("token", token)
-    
-    var fetchInit = {
-      method: 'POST',
-      body
-    }
-    
+  login = async ({ token }) => {  
     try {
-      let response = await fetch('http://www.masas.fm/auth/convert-token/', fetchInit)
-      let responseJSON = await response.json()
+      // GET USER TOKEN FROM MASAS API
+      const convertTokenURL = globals.ajaxPref + '/auth/convert-token/'
       
-      this.setState({ test: responseJSON.access_token })
+      let convertTokenBody = new FormData()
+      convertTokenBody.append("grant_type", "convert_token")
+      convertTokenBody.append("client_id", "biHRTlM74WJ2l8NddjR6pa8uNYpWC4vFzTjyjOUO")
+      convertTokenBody.append("client_secret", "aNXFRxyW20wBDLmTlf4ntmFKYSQ7qvig3PSRLlSxBYfxpmFPnh9JJz876eLMIeZJaoYyM2F6Q7q36QveAWacmiOT14y1z0EwpqO7lQVhXBx037FNGr6mDwYNq1fGfNVl")
+      convertTokenBody.append("backend", "facebook")
+      convertTokenBody.append("token", token)
+
+      const convertTokenInit = {
+        method: 'POST',
+        body: convertTokenBody,
+      }
+    
+      let MASAS_token = await fetch(convertTokenURL, convertTokenInit)
+      let MASAS_tokenJSON = await MASAS_token.json()
+      
+      // GET USER PK FROM MASAS API
+      const userPkRequestURL = globals.ajaxPref + '/api/check-user/'
+      
+      let userPkRequestHeaders = new Headers()
+      userPkRequestHeaders.append('Authorization', 'Bearer ' + MASAS_tokenJSON.access_token)
+      
+      const userPkInit = {
+        method: 'GET',
+        headers: userPkRequestHeaders,
+      }
+      
+      let userPk = await fetch(userPkRequestURL, userPkInit)
+      let userPkJSON = await userPk.json()
+      
+      // GET USER DATA FROM MASAS API
+      const userDataRequestURL = globals.ajaxPref + '/api/users/' + userPkJSON.userPk + '/'
+      
+      let userData = await fetch(userDataRequestURL)
+      let userDataJSON = await userData.json()
+      
+      // UPDATE APP STATE
+      this.props.loginUser(MASAS_tokenJSON.access_token, userDataJSON, userPkJSON.userPk)
     } catch(error) {
-      this.setState({ test: error })
+      console.log(error)
+      this.setState({ error: error })
     }
   }
   
@@ -64,22 +96,31 @@ let mapDispatchToProps = function(dispatch) {
     console.log(this)
     var that = this
     return (
-      <View style={{margin: 128}}>
-        <Text onPress={Actions.Profile}>This is the login page!!</Text>
-        <Text onPress={ this.hey }>{ this.state.test }</Text>
+      <View style={ styles.container }>
+        <Text onPress={Actions.Profile}>This is the login page!!!</Text>
+        
           
         <FBLogin onLogin={ (data) => {
             console.log(data)
             that.login(data.credentials)
           }}
           permissions={["email"]}/>
+        
+        <Image
+          source={require('./../../img/logo.png')}
+        />
 
       </View>
     )
   }
 }
 
-// export default Login
+/******* PropTypes *******/
+Login.propTypes = {
+  
+}
+
+/******* EXPORT COMPONENT *******/
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
