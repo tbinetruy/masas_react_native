@@ -1,3 +1,4 @@
+/******* IMPORTS *******/
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -6,33 +7,63 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import styles from './styles/SidebarContentStyles'
+
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
+/******* REDUX PROPS *******/
+let mapStateToProps = function(state) {
+	return {
+      navSiderbarOpen: state.appReducer.navSiderbarOpen,
+      MASASuser: state.appReducer.MASASuser,
+      userData: state.appReducer.userData,
+	}
+}
+
+let mapDispatchToProps = function(dispatch) {
+	return {
+      toogleSidebar: () => dispatch({type:'TOOGLE_NAV_SIDEBAR'}),
+//       logout: logout.bind(null,dispatch)
+	}
+}
+
+/******* COMPONENT DEFINITION *******/
 class SidebarContent extends Component {
   goToProfile = () => {
-      Actions.Profile()
+    this.props.toogleSidebar()
+//       Actions.Profile()
 
       // close sidebar
   }
 
   goToLogin = () => {
-    Actions.Login()
+    this.props.toogleSidebar()
+//     Actions.Login()
 
     // close sidebar
   }
+  
+  goToLogout = () => {
+    this.props.toogleSidebar()
+  }
 
   render = () => {
-    console.log(Actions)
+    
+    const isLoggedIn = this.props.MASASuser !== "" ? true : false
+    
     return (
       <View style={ styles.container }>
-        <TouchableOpacity onPress={this.goToProfile}>
-          <Text style={ styles.text }>
+        <TouchableOpacity
+          onPress={ isLoggedIn ? this.goToProfile : () => {} }>
+          <Text style={ styles.mainLink }>
             Profile
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.goToLogin}>
-          <Text style={ styles.text }>
+        <TouchableOpacity
+          onPress={ isLoggedIn ? this.goToLogin : this.goToLogout }>
+          <Text 
+            style={ [styles.mainLink, isLoggedIn ? [] : styles.disabled] }>
             Login
           </Text>
         </TouchableOpacity>
@@ -41,17 +72,13 @@ class SidebarContent extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
-  },
-  text: {
-    color: 'red'
-  },
-});
+/******* PropTypes *******/
+SidebarContent.propTypes = {
+  
+}
 
-export default SidebarContent
-// export default connect(({store}) => ({store}))(SidebarContent);
+/******* EXPORT COMPONENT *******/
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SidebarContent)

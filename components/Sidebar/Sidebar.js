@@ -35,7 +35,7 @@ class Sidebar extends Component {
         menu={ menu }
         onChange={ (isOpen) => {
           console.log(isOpen)
-          if(!isOpen)
+          if(!isOpen && this.props.isNavSiderbarOpen)
             this.props.toogleSidebar()
           }}
         isOpen={ this.props.isNavSiderbarOpen }
@@ -45,18 +45,6 @@ class Sidebar extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
-  },
-  text: {
-    color: 'red'
-  },
-});
 
 /******* EXPORT COMPONENT *******/
 export default connect(
