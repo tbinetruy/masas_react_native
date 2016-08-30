@@ -4,11 +4,11 @@ let exportVar = {}
 
 exportVar.defaultState = {
 	MASASuser: "", 	// user login token
-	MASASuserPk: null, 	
+	MASASuserPk: 0, 	
 	userData: {},	// user data (pk, username, email etc)
 	pageTitle: 'home', 
 	pageType: 0,		// 0 = hamburger icon, 1 = arrow icon
-	navSiderbarOpen: true,
+	navSiderbarOpen: false,
 	processingAuthCookie: true,			// (bool) don't render app children until set to false
 	backArrowFunc: () => "",			// (func) what happens when user clicks on back arrow 
 	isAppFetching: false,				// (bool)

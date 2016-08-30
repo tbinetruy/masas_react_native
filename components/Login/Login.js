@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native'
 
-import styles from './LoginStyles'
+import styles from './styles/LoginStyles'
 
 import { Actions } from 'react-native-router-flux';
 

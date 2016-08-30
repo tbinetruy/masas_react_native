@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native'
 
-import styles from './TemplateStyles'
+import styles from './styles/TemplateStyles'
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';

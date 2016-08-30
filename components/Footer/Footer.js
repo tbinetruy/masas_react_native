@@ -9,7 +9,7 @@ import {
 
 import { connect } from 'react-redux';
 
-import styles from './FooterStyles'
+import styles from './styles/FooterStyles'
 
 var AudioPlayer = require('react-native-stream-audio-from-url')
 

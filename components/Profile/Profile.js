@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+// import styles from './styles/LoginStyles'
+
 class Profile extends Component {
   render() {
     return (
