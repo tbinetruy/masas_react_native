@@ -97,18 +97,17 @@ class Login extends Component {
     var that = this
     return (
       <View style={ styles.container }>
-        <Text onPress={Actions.Profile}>This is the login page!!!</Text>
+        <Text onPress={Actions.Profile}>Login</Text>
         
-          
+        <Image
+          source={require('./../../img/logo.png')}
+        />
+        
         <FBLogin onLogin={ (data) => {
             console.log(data)
             that.login(data.credentials)
           }}
           permissions={["email"]}/>
-        
-        <Image
-          source={require('./../../img/logo.png')}
-        />
 
       </View>
     )

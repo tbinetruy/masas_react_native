@@ -6,7 +6,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: "rgba(0,0,0,1)",
   },
   text: {
     color: 'white'

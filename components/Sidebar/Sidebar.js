@@ -11,16 +11,36 @@ import { Actions, DefaultRenderer } from 'react-native-router-flux';
 import SidebarContent from './SidebarContent'
 import SideMenu from 'react-native-side-menu';
 
+/******* REDUX PROPS *******/
+let mapStateToProps = function(state) {
+	return {
+      isNavSiderbarOpen: state.appReducer.navSiderbarOpen
+	}
+}
+
+let mapDispatchToProps = function(dispatch) {
+	return {
+      toogleSidebar: () => dispatch({type:'TOOGLE_NAV_SIDEBAR'}),
+	}
+}
+
+/******* COMPONENT DEFINITION *******/
 class Sidebar extends Component {
 
-  render() {
-    console.log(this.props)
-    const children = this.props.navigationState.children;
-    const menu = <SidebarContent />;
+  render = () => {
+    const menu = <SidebarContent/>;
 
     return (
-      <SideMenu menu={ menu }>
-        <DefaultRenderer navigationState={children[0]} />
+      <SideMenu 
+        menu={ menu }
+        onChange={ (isOpen) => {
+          console.log(isOpen)
+          if(!isOpen)
+            this.props.toogleSidebar()
+          }}
+        isOpen={ this.props.isNavSiderbarOpen }
+        >
+        { this.props.children }
       </SideMenu>
     );
   }
@@ -38,5 +58,8 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default SidebarContent
-export default Sidebar;
+/******* EXPORT COMPONENT *******/
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Sidebar);

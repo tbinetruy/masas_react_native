@@ -8,7 +8,7 @@ exportVar.defaultState = {
 	userData: {},	// user data (pk, username, email etc)
 	pageTitle: 'home', 
 	pageType: 0,		// 0 = hamburger icon, 1 = arrow icon
-	navSiderbarOpen: false,
+	navSiderbarOpen: true,
 	processingAuthCookie: true,			// (bool) don't render app children until set to false
 	backArrowFunc: () => "",			// (func) what happens when user clicks on back arrow 
 	isAppFetching: false,				// (bool)

@@ -40,11 +40,12 @@ let mapDispatchToProps = function(dispatch) {
 
 class Footer extends Component {
   playRandomSong() {
-    AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/268713736/stream?client_id=e5d965905a85b11e108d064bc04430a3")
+//     AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/268713736/stream?client_id=e5d965905a85b11e108d064bc04430a3")
+    AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/151854794/stream?client_id=e5d965905a85b11e108d064bc04430a3")
+
   }
     
   render() {
-    AudioPlayer.playFromURL("https://api.soundcloud.com/tracks/151854794/stream?client_id=e5d965905a85b11e108d064bc04430a3")
     
     return (
       <View style={ styles.container }>

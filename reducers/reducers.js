@@ -51,5 +51,12 @@ const rootReducer = combineReducers({
 })
 
 
-var store = createStore(rootReducer)
+const enhancer = global.reduxNativeDevTools ? global.reduxNativeDevTools(/*options*/) : nope => nope
+  
+var store = createStore(rootReducer, initialState, enhancer)
+
+if (global.reduxNativeDevTools) {
+  global.reduxNativeDevTools.updateStore(store);
+}
+
 export default store
