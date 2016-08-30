@@ -4,13 +4,15 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  NativeModules
 } from 'react-native';
 
 import styles from './styles/SidebarContentStyles'
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+
 
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
@@ -24,24 +26,19 @@ let mapStateToProps = function(state) {
 let mapDispatchToProps = function(dispatch) {
 	return {
       toogleSidebar: () => dispatch({type:'TOOGLE_NAV_SIDEBAR'}),
-//       logout: logout.bind(null,dispatch)
+      logout: () => dispatch({type: "LOGOUT"}),
 	}
 }
 
 /******* COMPONENT DEFINITION *******/
 class SidebarContent extends Component {
+
   goToProfile = () => {
     this.props.toogleSidebar()
-//       Actions.Profile()
-
-      // close sidebar
   }
 
   goToLogin = () => {
     this.props.toogleSidebar()
-//     Actions.Login()
-
-    // close sidebar
   }
   
   goToLogout = () => {

@@ -59,4 +59,4 @@ if (global.reduxNativeDevTools) {
   global.reduxNativeDevTools.updateStore(store);
 }
 
-export default store
+module.exports = store

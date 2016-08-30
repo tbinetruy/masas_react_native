@@ -4,24 +4,8 @@
  * @flow
  */
 import styles from './indexStyles'
+
 import React, { Component } from 'react';
-
-import { Router, Scene } from 'react-native-router-flux';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { connect } from 'react-redux';
-
-const RouterWithRedux = connect()(Router);
-import store from './reducers/reducers';
-
-import SideMenu from 'react-native-side-menu';
-import Sidebar from './components/Sidebar/Sidebar';
-
-import Login from './components/Login/Login';
-import Profile from './components/Profile/Profile';
-import SidebarContent from './components/Sidebar/SidebarContent';
-import Footer from './components/Footer/Footer';
-
 import {
   AppRegistry,
   StyleSheet,
@@ -29,7 +13,26 @@ import {
   View,
   Image,
   TouchableHighlight,
+  NativeModules,
 } from 'react-native'
+const { FBLoginManager } = NativeModules;
+
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider, connect } from 'react-redux';
+import { Router, Scene } from 'react-native-router-flux';
+
+const RouterWithRedux = connect()(Router);
+import store from './reducers/reducers';
+
+import { login } from './MASAS_functions'
+import SideMenu from 'react-native-side-menu';
+import Sidebar from './components/Sidebar/Sidebar';
+
+import Login from './components/Login/Login';
+import Profile from './components/Profile/Profile';
+import SidebarContent from './components/Sidebar/SidebarContent';
+import Footer from './components/Footer/Footer';
 
 class RightMenuIcon extends Component {
   render() {
@@ -107,6 +110,14 @@ LeftMenuIcon = connect(
       
 
 class MASAS extends Component {
+  componentDidMount = () => {
+      FBLoginManager.getCredentials((error, data) => {
+        if(!error) {
+          login(data.credentials.token)
+        } else {}
+      })
+  }
+  
   render() {
     const menu = <SidebarContent />
           
@@ -119,9 +130,7 @@ class MASAS extends Component {
                   <Scene 
                     key="root" 
                     navigationBarStyle={ styles.navBar } 
-                    titleStyle={ styles.navBarTitle }
-                    backButtonImage={ require('./img/MASAS_arrow_left.png') }
-                    leftTitle="hey" >
+                    titleStyle={ styles.navBarTitle }>
                     <Scene 
                       key="Login" 
                       component={Login} 

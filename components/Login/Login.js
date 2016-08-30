@@ -48,7 +48,6 @@ class Login extends Component {
   }
   
   render = () => {
-    console.log(this)
     var that = this
     return (
       <View style={ styles.container }>
