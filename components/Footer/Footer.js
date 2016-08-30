@@ -1,3 +1,6 @@
+/******* IMPORTS *******/
+
+// REACT
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,11 +10,19 @@ import {
   TouchableHighlight,
 } from 'react-native'
 
+// 3RD PARTY IMPORTS
 import { connect } from 'react-redux';
+var AudioPlayer = require('react-native-stream-audio-from-url')
 
+// MASAS FUNCTIONS
+import globals from'./../../globals'
+// import { login } from './../../MASAS_functions'
+
+// MASAS COMPONENTS
+import globalStyles from './../globalStyles.js'
 import styles from './styles/FooterStyles'
 
-var AudioPlayer = require('react-native-stream-audio-from-url')
+
 
 
 /******* REDUX PROPS *******/
@@ -48,45 +59,48 @@ class Footer extends Component {
   render() {
     
     return (
-      <View style={ styles.container }>
+      <View style={ [styles.container, globalStyles.headerColor] }>
         <TouchableHighlight
           onPress={ AudioPlayer.pause }
           activeOpacity={10 / 100}
           underlayColor={"rgb(210,210,210)"}>
           <Image 
             style={{
-              width: 45,
-              height: 45,
+              marginRight: 10,
+              width: 30,
+              height: 30,
             }}
-            resizeMode={"stretch"}
+            resizeMode={"contain"}
             source={ require('./../../img/MASAS_player_pause.png')}
           />
         </TouchableHighlight>
         
         <TouchableHighlight
           onPress={ AudioPlayer.resume }
-          activeOpacity={75 / 100}
+          activeOpacity={10 / 100}
           underlayColor={"rgb(210,210,210)"}>
           <Image 
             style={{
-              width: 45,
-              height: 45,
+              marginRight: 10,
+              width: 30,
+              height: 30,
             }}
-            resizeMode={"stretch"}
+            resizeMode={"contain"}
             source={ require('./../../img/MASAS_player_play.png')}
           />
         </TouchableHighlight>
         
         <TouchableHighlight
           onPress={ this.playNewSong }
-          activeOpacity={75 / 100}
+          activeOpacity={ 10  / 100}
           underlayColor={"rgb(210,210,210)"}>
           <Image 
             style={{
-              width: 45,
-              height: 45,
+              marginRight: 10,
+              width: 20,
+              height: 20,
             }}
-            resizeMode={"stretch"}
+            resizeMode={"contain"}
             source={ require('./../../img/MASAS_next.png') }
           />
         </TouchableHighlight>

@@ -9,6 +9,7 @@ import {
   View,
   Image,
   TouchableHighlight,
+  StatusBar,
   NativeModules,
 } from 'react-native'
 const { FBLoginManager } = NativeModules
@@ -25,6 +26,7 @@ import store from './reducers/reducers'
 import { login } from './MASAS_functions'
 
 // MASAS COMPONENTS
+import globalStyles from './components/globalStyles'
 import styles from './indexStyles'
 import Sidebar from './components/Sidebar/Sidebar'
 import Login from './components/Login/Login'
@@ -42,18 +44,18 @@ class RightMenuIcon extends Component {
         onPress={ this.props.toogleSidebar }
         style={{ 
           width: 30, 
-          height: 37,
+          height: 25,
           alignItems: 'center',
           justifyContent: 'center',
           top:0
         }}> 
         <Image 
           style={{
-            width: 30,
-            height: 7,
+            width: 20,
+            height:  20 ,
             alignSelf: 'center',
           }}
-          resizeMode={"stretch"}
+          resizeMode={"contain"}
           source={ require('./img/MASAS_dot_menu_icon.png') }
         />
       </TouchableHighlight>
@@ -86,8 +88,8 @@ class LeftMenuIcon extends Component {
         }}> 
         <Image 
           style={{
-            width: 30,
-            height:  30 ,
+            width: 20,
+            height:  20 ,
             alignSelf: 'center',
           }}
           resizeMode={"stretch"}
@@ -114,11 +116,14 @@ LeftMenuIcon = connect(
 
 class MASAS extends Component {
   componentDidMount = () => {
-      FBLoginManager.getCredentials((error, data) => {
-        if(!error) {
-          login(data.credentials.token)
-        } else {}
-      })
+    // change IOS status bar color (text to white)
+    StatusBar.setBarStyle('light-content')
+    
+    FBLoginManager.getCredentials((error, data) => {
+      if(!error) {
+        login(data.credentials.token)
+      } else {}
+    })
   }
   
   render() {
@@ -140,7 +145,7 @@ class MASAS extends Component {
                         key="Login2" 
                         component={Login} 
                         title="Login" 
-                        navigationBarStyle={ styles.navBar } 
+                        navigationBarStyle={ [styles.navBar, globalStyles.headerColor] } 
                         titleStyle={ styles.navBarTitle }
                         renderRightButton={ () => <RightMenuIcon />}
                         renderLeftButton={ () => <LeftMenuIcon />}
@@ -153,7 +158,7 @@ class MASAS extends Component {
                         key="Profile2" 
                         component={Profile} 
                         title="Profile"
-                        navigationBarStyle={ styles.navBar } 
+                        navigationBarStyle={ [styles.navBar, globalStyles.headerColor] } 
                         titleStyle={ styles.navBarTitle }
                         renderRightButton={ () => <RightMenuIcon />}
                         renderLeftButton={ () => <LeftMenuIcon />}
