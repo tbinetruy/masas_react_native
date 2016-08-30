@@ -34,10 +34,12 @@ let mapDispatchToProps = function(dispatch) {
 class SidebarContent extends Component {
 
   goToProfile = () => {
+    Actions.Profile()
     this.props.toogleSidebar()
   }
 
   goToLogin = () => {
+    Actions.Login()
     this.props.toogleSidebar()
   }
   
@@ -53,15 +55,14 @@ class SidebarContent extends Component {
       <View style={ styles.container }>
         <TouchableOpacity
           onPress={ isLoggedIn ? this.goToProfile : () => {} }>
-          <Text style={ styles.mainLink }>
+          <Text style={ [styles.mainLink, isLoggedIn ? [] : styles.disabled] }>
             Profile
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={ isLoggedIn ? this.goToLogin : this.goToLogout }>
-          <Text 
-            style={ [styles.mainLink, isLoggedIn ? [] : styles.disabled] }>
-            Login
+          onPress={ !isLoggedIn ? this.goToLogin : this.goToLogin }>
+          <Text style={ styles.mainLink }>
+            { isLoggedIn ? "Logout" : "Login" }
           </Text>
         </TouchableOpacity>
       </View>

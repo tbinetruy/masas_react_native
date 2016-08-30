@@ -13,6 +13,6 @@ export default styles = StyleSheet.create({
   },
   
   disabled: {
-    color: 'red'
+    color: 'rgba(255,255,255,0.4)'
   },
 });

@@ -1,11 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-import styles from './indexStyles'
+/******* IMPORTS *******/
 
-import React, { Component } from 'react';
+// REACT
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
@@ -15,24 +11,29 @@ import {
   TouchableHighlight,
   NativeModules,
 } from 'react-native'
-const { FBLoginManager } = NativeModules;
+const { FBLoginManager } = NativeModules
 
+// 3RD PARTY IMPORTS
+import { createStore, applyMiddleware, compose } from 'redux'
+import { Provider, connect } from 'react-redux'
+import { Router, Scene } from 'react-native-router-flux'
+const RouterWithRedux = connect()(Router)
+import SideMenu from 'react-native-side-menu'
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider, connect } from 'react-redux';
-import { Router, Scene } from 'react-native-router-flux';
-
-const RouterWithRedux = connect()(Router);
-import store from './reducers/reducers';
-
+// MASAS FUNCTIONS
+import store from './reducers/reducers'
 import { login } from './MASAS_functions'
-import SideMenu from 'react-native-side-menu';
-import Sidebar from './components/Sidebar/Sidebar';
 
-import Login from './components/Login/Login';
-import Profile from './components/Profile/Profile';
-import SidebarContent from './components/Sidebar/SidebarContent';
-import Footer from './components/Footer/Footer';
+// MASAS COMPONENTS
+import styles from './indexStyles'
+import Sidebar from './components/Sidebar/Sidebar'
+import Login from './components/Login/Login'
+import Profile from './components/Profile/Profile'
+import SidebarContent from './components/Sidebar/SidebarContent'
+import Footer from './components/Footer/Footer'
+
+
+/******* SUB COMPONENTS DEFINITION *******/
 
 class RightMenuIcon extends Component {
   render() {
@@ -109,6 +110,8 @@ LeftMenuIcon = connect(
 })(LeftMenuIcon)  
       
 
+/******* MAIN COMPONENT DEFINITION *******/
+
 class MASAS extends Component {
   componentDidMount = () => {
       FBLoginManager.getCredentials((error, data) => {
@@ -127,18 +130,35 @@ class MASAS extends Component {
             <View style={ styles.routerContainer }>
               <Provider store={store}>
                 <RouterWithRedux>
-                  <Scene 
-                    key="root" 
-                    navigationBarStyle={ styles.navBar } 
-                    titleStyle={ styles.navBarTitle }>
-                    <Scene 
-                      key="Login" 
-                      component={Login} 
-                      title="Login" 
-                      renderRightButton={ () => <RightMenuIcon />}
-                      renderLeftButton={ () => <LeftMenuIcon />}
-                      initial={true} />
-                    <Scene key="Profile" component={Profile} title="Profile" />
+                  
+                  {/* ROOT */}
+                  <Scene key="root">
+                    
+                    {/* LOGIN */}
+                    <Scene key="Login">
+                      <Scene 
+                        key="Login2" 
+                        component={Login} 
+                        title="Login" 
+                        navigationBarStyle={ styles.navBar } 
+                        titleStyle={ styles.navBarTitle }
+                        renderRightButton={ () => <RightMenuIcon />}
+                        renderLeftButton={ () => <LeftMenuIcon />}
+                        initial={true} />
+                    </Scene>
+                    
+                    {/* PROFILE */}
+                    <Scene key="Profile">
+                      <Scene 
+                        key="Profile2" 
+                        component={Profile} 
+                        title="Profile"
+                        navigationBarStyle={ styles.navBar } 
+                        titleStyle={ styles.navBarTitle }
+                        renderRightButton={ () => <RightMenuIcon />}
+                        renderLeftButton={ () => <LeftMenuIcon />}
+                        initial={true} />
+                    </Scene>
                   </Scene>
                 </RouterWithRedux>
               </Provider>
@@ -148,9 +168,9 @@ class MASAS extends Component {
             </View>
           </Sidebar>
       </Provider>
-    );
+    )
   }
 }
 
-
-AppRegistry.registerComponent('MASAS', () => MASAS);
+    
+AppRegistry.registerComponent('MASAS', () => MASAS)

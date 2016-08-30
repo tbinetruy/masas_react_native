@@ -9,8 +9,8 @@ import {
 } from 'react-native'
 
 // 3RD PARTY IMPORTS
-import { Actions } from 'react-native-router-flux'
-import { connect } from 'react-redux'
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 // MASAS FUNCTIONS
 import globals from'./../../globals'
@@ -18,12 +18,13 @@ import { login } from './../../MASAS_functions'
 
 // MASAS COMPONENTS
 import globalStyles from './../globalStyles.js'
-import styles from './styles/TemplateStyles'
+import styles from './styles/BgImageStyles'
 
 
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
 	return {
+      backgroundURL: state.homeReducer.backgroundURL,
 	}
 }
 
@@ -34,7 +35,7 @@ let mapDispatchToProps = function(dispatch) {
 
 
 /******* COMPONENT DEFINITION *******/
-class Template extends Component {
+class BgImage extends Component {
   constructor(props) {
     super(props)
     
@@ -45,15 +46,25 @@ class Template extends Component {
   
   render = () => {
     return (
-      <View style={ styles.container }>
-      </View>
+      <Image 
+        style={{
+          flex: 1
+        }}
+        resizeMode={"cover"}
+        source={{ uri:this.props.backgroundURL }}
+      >
+        <View
+          style={ styles.overlay }>
+          { this.props.children }
+        </View>
+      </Image>
     )
   }
 }
 
 
 /******* PropTypes *******/
-Template.propTypes = {
+BgImage.propTypes = {
   
 }
 
@@ -62,4 +73,4 @@ Template.propTypes = {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Template)
+)(BgImage)

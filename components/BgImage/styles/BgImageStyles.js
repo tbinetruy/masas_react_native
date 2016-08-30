@@ -6,16 +6,12 @@ export default styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "rgba(0,0,0,0)",
   },
   
-  text: {
-    color: 'white'
-  },
-  
-  MASAS_logo: {
-    height: 400,
-    width: 150,
-    resizeMode: "contain"
+  overlay: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    backgroundColor: "rgba(0,0,0,0.43)",
   }
 })

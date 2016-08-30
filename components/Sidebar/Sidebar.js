@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
-import { connect } from 'react-redux';
-import { Actions, DefaultRenderer } from 'react-native-router-flux';
+import { connect } from 'react-redux'
+import { Actions, DefaultRenderer } from 'react-native-router-flux'
 
 import SidebarContent from './SidebarContent'
-import SideMenu from 'react-native-side-menu';
+import SideMenu from 'react-native-side-menu'
 
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
@@ -28,21 +28,23 @@ let mapDispatchToProps = function(dispatch) {
 class Sidebar extends Component {
 
   render = () => {
-    const menu = <SidebarContent/>;
+    const menu = <SidebarContent/>
 
     return (
-      <SideMenu 
-        menu={ menu }
-        onChange={ (isOpen) => {
-          console.log(isOpen)
-          if(!isOpen && this.props.isNavSiderbarOpen)
-            this.props.toogleSidebar()
-          }}
-        isOpen={ this.props.isNavSiderbarOpen }
-        >
-        { this.props.children }
-      </SideMenu>
-    );
+      <View style={ styles.container }>
+        <SideMenu 
+          menu={ menu }
+          onChange={ (isOpen) => {
+            console.log(isOpen)
+            if(!isOpen && this.props.isNavSiderbarOpen)
+              this.props.toogleSidebar()
+            }}
+          isOpen={ this.props.isNavSiderbarOpen }
+          >
+          { this.props.children }
+        </SideMenu>
+      </View>
+    )
   }
 }
 
@@ -50,4 +52,4 @@ class Sidebar extends Component {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Sidebar);
+)(Sidebar)
