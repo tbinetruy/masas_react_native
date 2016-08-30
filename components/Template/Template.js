@@ -1,16 +1,24 @@
 /******* IMPORTS *******/
-import React, { Component } from 'react';
 
+// REACT
+import React, { Component } from 'react';
 import {
   Text,
   View,
   Image,
 } from 'react-native'
 
-import styles from './styles/TemplateStyles'
-
+// 3RD PARTY IMPORTS
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+
+// MASAS FUNCTIONS
+import globals from'./../../globals'
+import { login } from './../../MASAS_functions'
+
+// MASAS COMPONENTS
+import styles from './styles/TemplateStyles'
+
 
 /******* REDUX PROPS *******/
 let mapStateToProps = function(state) {
@@ -22,6 +30,7 @@ let mapDispatchToProps = function(dispatch) {
 	return {
 	}
 }
+
 
 /******* COMPONENT DEFINITION *******/
 class Template extends Component {
@@ -41,13 +50,15 @@ class Template extends Component {
   }
 }
 
+
 /******* PropTypes *******/
 Template.propTypes = {
   
 }
 
+
 /******* EXPORT COMPONENT *******/
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Login)
+)(Template)
